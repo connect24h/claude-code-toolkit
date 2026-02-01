@@ -9,27 +9,25 @@ Claude Codeのオーケストレーション機能を使用するには、Codex 
 ### インストール
 
 ```bash
-# npmでインストール
+# npmでグローバルインストール
 npm install -g @openai/codex
-
-# または yarn
-yarn global add @openai/codex
 ```
 
-### 認証設定
+### 認証
 
 ```bash
-# OpenAI APIキーを設定
-export OPENAI_API_KEY="sk-..."
-
-# または .bashrc / .zshrc に追加
-echo 'export OPENAI_API_KEY="sk-..."' >> ~/.bashrc
-source ~/.bashrc
+# 対話形式でログイン
+codex login
 ```
+
+ブラウザが開き、OpenAIアカウントで認証します。
 
 ### 動作確認
 
 ```bash
+codex --version
+# codex-cli 0.91.0
+
 codex "Hello, world!"
 ```
 
@@ -37,19 +35,31 @@ codex "Hello, world!"
 
 | コマンド | 説明 |
 |----------|------|
-| `codex "タスク"` | 対話モードでタスク実行 |
-| `codex exec "タスク"` | 非対話モードで実行 |
-| `codex review` | コードレビュー |
-| `codex apply` | 差分を適用 |
+| `codex "プロンプト"` | 対話モードで開始 |
+| `codex exec "プロンプト"` | 非対話モード（自動実行） |
+| `codex review` | コードレビューを実行 |
+| `codex apply` | 最新の差分をgit applyで適用 |
+| `codex resume` | 前回セッションを再開 |
+| `codex resume --last` | 最新セッションを再開 |
 
-### 設定ファイル
+### 使用例
 
-`~/.codex/config.json`:
-```json
-{
-  "model": "gpt-4",
-  "approval_mode": "suggest"
-}
+```bash
+# バグ修正を依頼
+codex exec "src/utils.ts の未使用変数を削除してください"
+
+# コードレビュー
+codex review
+
+# 差分を適用
+codex apply
+```
+
+### サンドボックスモード
+
+```bash
+# サンドボックス内でコマンド実行
+codex sandbox
 ```
 
 ---
@@ -59,30 +69,28 @@ codex "Hello, world!"
 ### インストール
 
 ```bash
-# npmでインストール
-npm install -g @anthropic-ai/gemini-cli
-
-# または公式インストーラー
-curl -fsSL https://gemini.google.com/cli/install.sh | bash
+# npmでグローバルインストール
+npm install -g @google/gemini-cli
 ```
 
-### 認証設定
+### 認証
 
 ```bash
-# Google Cloud認証
-gcloud auth application-default login
+# 初回実行時に認証フローが開始
+gemini
 
-# または API キーを設定
-export GEMINI_API_KEY="..."
-
-# または .bashrc / .zshrc に追加
-echo 'export GEMINI_API_KEY="..."' >> ~/.bashrc
-source ~/.bashrc
+# または明示的にログイン
+gemini login
 ```
+
+ブラウザが開き、Googleアカウントで認証します。
 
 ### 動作確認
 
 ```bash
+gemini --version
+# 0.25.2
+
 gemini "Hello, world!"
 ```
 
@@ -90,18 +98,30 @@ gemini "Hello, world!"
 
 | コマンド | 説明 |
 |----------|------|
-| `gemini "タスク"` | 対話モードでタスク実行 |
-| `gemini "タスク" --approval-mode yolo` | 自動承認モード |
-| `gemini --resume latest` | 前回セッション再開 |
+| `gemini "プロンプト"` | 対話モードで開始 |
+| `gemini "プロンプト" -y` | YOLOモード（自動承認） |
+| `gemini --approval-mode yolo "プロンプト"` | 全ツール自動承認 |
+| `gemini --resume latest` | 最新セッションを再開 |
+| `gemini --list-sessions` | セッション一覧表示 |
 
-### 設定ファイル
+### 使用例
 
-`~/.gemini/config.json`:
-```json
-{
-  "model": "gemini-2.0-flash",
-  "sandbox": true
-}
+```bash
+# 分析を依頼（対話モード）
+gemini "このコードベースの構造を分析してください"
+
+# 自動実行モード
+gemini "README.mdを日本語に翻訳してください" --approval-mode yolo
+
+# セッション再開
+gemini --resume latest
+```
+
+### サンドボックスモード
+
+```bash
+# サンドボックス内で実行
+gemini --sandbox "コードを生成してください"
 ```
 
 ---
@@ -114,12 +134,14 @@ gemini "Hello, world!"
 ┌─────────────────────────────────────────────────────────┐
 │                    Claude Code                          │
 │              （統括エージェント/オーケストレーター）      │
-└───────────┬─────────────────────────────┬───────────────┘
-            ↓                             ↓
-┌───────────────────────┐     ┌───────────────────────────┐
-│      Codex CLI        │     │       Gemini CLI          │
-│  (単純タスク/修正)    │     │  (分析/調査/ドキュメント) │
-└───────────────────────┘     └───────────────────────────┘
+└───────────┬─────────────────────────────────────────────┘
+            │
+      ┌─────┴─────┐
+      ▼           ▼
+┌───────────┐ ┌───────────────┐
+│ Codex CLI │ │  Gemini CLI   │
+│ (OpenAI)  │ │   (Google)    │
+└───────────┘ └───────────────┘
 ```
 
 ### タスク振り分け基準
@@ -127,33 +149,54 @@ gemini "Hello, world!"
 | 複雑度 | 担当 | タスク例 |
 |--------|------|----------|
 | 低 | Codex CLI | バグ修正、1-2ファイル変更、hotfix |
-| 中 | Gemini CLI | 分析、調査、ドキュメント生成 |
-| 高 | Claude Code | 新機能、リファクタ、マルチステップ |
+| 中 | Gemini CLI | 分析、調査、ドキュメント生成、大量ファイル読解 |
+| 高 | Claude Code | 新機能、リファクタ、マルチステップ、複雑なタスク |
 
-### 使用方法
+### Claude Codeからの呼び出し
 
 ```bash
-# Claude Codeから直接コマンドで呼び出し
-/orchestrate <タスク>      # 自動振り分け
-/delegate-codex <タスク>   # Codex CLIに委譲
-/delegate-gemini <タスク>  # Gemini CLIに委譲
+# 自動振り分け
+/orchestrate <タスク>
+
+# Codex CLIに直接委譲
+/delegate-codex <タスク>
+
+# Gemini CLIに直接委譲
+/delegate-gemini <タスク>
 ```
 
 ---
 
-## 4. トラブルシューティング
+## 4. 各CLIの特徴比較
+
+| 特徴 | Codex CLI | Gemini CLI |
+|------|-----------|------------|
+| **提供元** | OpenAI | Google |
+| **パッケージ** | @openai/codex | @google/gemini-cli |
+| **認証** | OpenAIアカウント | Googleアカウント |
+| **得意分野** | コード修正、レビュー | 分析、大規模読解 |
+| **コンテキスト** | 標準 | 200万トークン（大） |
+| **非対話モード** | `exec` | `-y` / `--approval-mode yolo` |
+| **MCP対応** | ✅ | ✅ |
+
+---
+
+## 5. トラブルシューティング
 
 ### Codex CLI が動かない
 
 ```bash
 # インストール確認
 which codex
+codex --version
 
-# APIキー確認
-echo $OPENAI_API_KEY
+# 再ログイン
+codex logout
+codex login
 
 # 再インストール
-npm uninstall -g @openai/codex && npm install -g @openai/codex
+npm uninstall -g @openai/codex
+npm install -g @openai/codex
 ```
 
 ### Gemini CLI が動かない
@@ -161,52 +204,68 @@ npm uninstall -g @openai/codex && npm install -g @openai/codex
 ```bash
 # インストール確認
 which gemini
+gemini --version
 
-# APIキー確認
-echo $GEMINI_API_KEY
+# 再ログイン
+gemini logout
+gemini login
 
-# 認証状態確認
-gcloud auth application-default print-access-token
+# 再インストール
+npm uninstall -g @google/gemini-cli
+npm install -g @google/gemini-cli
 ```
 
-### タイムアウトエラー
+### 権限エラー
 
 ```bash
-# Codex: タイムアウト延長
-codex exec --timeout 600 "タスク"
+# npm グローバルインストールの権限問題
+sudo npm install -g @openai/codex
+sudo npm install -g @google/gemini-cli
 
-# Gemini: タイムアウト延長
-gemini "タスク" --timeout 600
+# または npx で直接実行
+npx @openai/codex "プロンプト"
+npx @google/gemini-cli "プロンプト"
 ```
 
 ---
 
-## 5. 必要なAPIキー取得先
+## 6. 推奨設定
 
-| CLI | APIキー取得先 |
-|-----|--------------|
-| Codex CLI | https://platform.openai.com/api-keys |
-| Gemini CLI | https://aistudio.google.com/apikey |
-| Claude Code | https://console.anthropic.com/settings/keys |
-
----
-
-## 6. 推奨環境変数設定
-
-`~/.bashrc` または `~/.zshrc` に追加:
+### シェル設定（~/.bashrc または ~/.zshrc）
 
 ```bash
-# Claude Code (Anthropic)
-export ANTHROPIC_API_KEY="sk-ant-..."
+# エイリアス設定（オプション）
+alias cx='codex'
+alias gm='gemini'
 
-# Codex CLI (OpenAI)
-export OPENAI_API_KEY="sk-..."
+# Codex 自動実行
+alias cxe='codex exec'
 
-# Gemini CLI (Google)
-export GEMINI_API_KEY="..."
+# Gemini YOLOモード
+alias gmy='gemini --approval-mode yolo'
 ```
 
 設定後:
 ```bash
 source ~/.bashrc
+```
+
+---
+
+## 7. バージョン情報
+
+このドキュメント作成時のバージョン:
+- Codex CLI: 0.91.0
+- Gemini CLI: 0.25.2
+
+最新版の確認:
+```bash
+npm show @openai/codex version
+npm show @google/gemini-cli version
+```
+
+アップデート:
+```bash
+npm update -g @openai/codex
+npm update -g @google/gemini-cli
 ```

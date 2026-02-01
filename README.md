@@ -142,13 +142,19 @@ examples/youtube-observer/scripts/auto_summarize.sh
 - yt-dlp（YouTube観測用）
 - jq
 
-### APIキー取得先
+### CLIインストール
 
-| CLI | 取得先 |
-|-----|--------|
-| Claude Code | https://console.anthropic.com/settings/keys |
-| Codex CLI | https://platform.openai.com/api-keys |
-| Gemini CLI | https://aistudio.google.com/apikey |
+```bash
+# Codex CLI (OpenAI)
+npm install -g @openai/codex
+codex login
+
+# Gemini CLI (Google)
+npm install -g @google/gemini-cli
+gemini  # 初回実行で認証
+```
+
+詳細は [CODEX-GEMINI-SETUP.md](docs/CODEX-GEMINI-SETUP.md) を参照
 
 ## ライセンス
 
