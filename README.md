@@ -137,10 +137,18 @@ examples/youtube-observer/scripts/auto_summarize.sh
 ## 前提条件
 
 - Claude Code CLI
-- Codex CLI（オーケストレーション用）
-- Gemini CLI（オーケストレーション用）
+- Codex CLI（オーケストレーション用）- [セットアップガイド](docs/CODEX-GEMINI-SETUP.md)
+- Gemini CLI（オーケストレーション用）- [セットアップガイド](docs/CODEX-GEMINI-SETUP.md)
 - yt-dlp（YouTube観測用）
 - jq
+
+### APIキー取得先
+
+| CLI | 取得先 |
+|-----|--------|
+| Claude Code | https://console.anthropic.com/settings/keys |
+| Codex CLI | https://platform.openai.com/api-keys |
+| Gemini CLI | https://aistudio.google.com/apikey |
 
 ## ライセンス
 
