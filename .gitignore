@@ -1,0 +1,19 @@
+# Credentials
+.credentials.json
+*.key
+*.pem
+
+# Local settings
+settings.local.json
+
+# Cache
+cache/
+*.cache
+
+# Logs
+logs/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db

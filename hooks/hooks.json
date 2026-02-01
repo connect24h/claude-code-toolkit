@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "tool == \"Bash\" && tool_input.command matches \"(npm run dev|pnpm dev|yarn dev)\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '[Hook] 注意: dev serverはtmuxで実行することを推奨します' >&2; echo '[Hook] tmux new-session -d -s dev \"npm run dev\"' >&2"
+          }
+        ],
+        "description": "dev serverをtmuxで実行するよう推奨"
+      },
+      {
+        "matcher": "tool == \"Write\" && tool_input.file_path matches \"\\\\.(md|txt)$\" && !(tool_input.file_path matches \"(README|CLAUDE|CONTRIBUTING|CHANGELOG)\\\\.md$\")",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '[Hook] 警告: 不要なドキュメントファイルの作成を検出' >&2; echo '[Hook] README.mdに追記することを検討してください' >&2"
+          }
+        ],
+        "description": "不要なドキュメントファイル作成を警告"
+      },
+      {
+        "matcher": "tool == \"Bash\" && tool_input.command matches \"git push --force\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '[Hook] 警告: force pushは危険です' >&2; echo '[Hook] 本当に必要か確認してください' >&2"
+          }
+        ],
+        "description": "force pushを警告"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "tool == \"Edit\" && tool_input.file_path matches \"\\\\.(ts|tsx|js|jsx)$\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"const fs=require('fs');let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{const i=JSON.parse(d);const p=i.tool_input?.file_path;if(p&&fs.existsSync(p)){const c=fs.readFileSync(p,'utf8');if(/console\\.log/.test(c)){console.error('[Hook] 警告: console.logが残っています');console.error('[Hook] コミット前に削除してください')}}console.log(d)})\""
+          }
+        ],
+        "description": "console.logを警告"
+      },
+      {
+        "matcher": "tool == \"Bash\" && tool_input.command matches \"gh pr create\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{const i=JSON.parse(d);const out=i.tool_output?.output||'';const m=out.match(/https:\\/\\/github.com\\/[^\\\\s]+/);if(m){console.error('[Hook] PR作成完了: '+m[0])}console.log(d)})\""
+          }
+        ],
+        "description": "PR作成時にURLを表示"
+      },
+      {
+        "matcher": "tool == \"Edit\" && tool_input.file_path matches \"\\\\.ts$\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"const{execSync}=require('child_process');const fs=require('fs');const path=require('path');let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{const i=JSON.parse(d);const p=i.tool_input?.file_path;if(p&&fs.existsSync(p)){let dir=path.dirname(p);while(dir!==path.dirname(dir)&&!fs.existsSync(path.join(dir,'tsconfig.json'))){dir=path.dirname(dir)}if(fs.existsSync(path.join(dir,'tsconfig.json'))){try{execSync('npx tsc --noEmit --pretty false 2>&1',{cwd:dir,encoding:'utf8',stdio:['pipe','pipe','pipe']})}catch(e){const lines=(e.stdout||'').split('\\n').filter(l=>l.includes(p)).slice(0,5);if(lines.length){console.error('[Hook] 型エラー:');lines.forEach(l=>console.error(l))}}}}console.log(d)})\""
+          }
+        ],
+        "description": "TypeScriptファイル編集後に型チェック"
+      }
+    ],
+    "SessionEnd": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '[Hook] セッション終了: パターンを記録しました' >&2"
+          }
+        ],
+        "description": "セッション終了時にパターンを記録"
+      }
+    ]
+  }
+}

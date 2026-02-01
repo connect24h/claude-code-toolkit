@@ -1,0 +1,18 @@
+{
+  "channels": [
+    {
+      "id": "iketomo-ch",
+      "name": "池ともチャンネル",
+      "url": "https://www.youtube.com/@iketomo-ch",
+      "description": "AIエージェント時代の必須ノウハウ・スキル、最新AIツールの活用法",
+      "output_dir": "/root/iketomo_ch",
+      "enabled": true
+    }
+  ],
+  "settings": {
+    "default_period": "last_month",
+    "summary_detail_level": "detailed",
+    "include_timeline": true,
+    "include_related_research": true
+  }
+}
