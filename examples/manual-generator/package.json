@@ -1,0 +1,32 @@
+{
+  "name": "manual-generator",
+  "version": "1.0.0",
+  "description": "認証画面キャプチャ→注釈付与→利用マニュアル自動生成ツール",
+  "type": "module",
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "docx": "^9.0.0",
+    "exceljs": "^4.4.0",
+    "js-yaml": "^4.1.0",
+    "playwright": "^1.58.0",
+    "pptxgenjs": "^3.12.0",
+    "sharp": "^0.34.0"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^25.3.0",
+    "@vitest/coverage-v8": "^4.0.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.0",
+    "vitest": "^4.0.0"
+  }
+}

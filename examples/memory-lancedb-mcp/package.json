@@ -1,0 +1,29 @@
+{
+  "name": "memory-lancedb-mcp",
+  "version": "1.0.0",
+  "description": "LanceDBベースのセマンティックメモリMCPサーバー",
+  "type": "module",
+  "bin": {
+    "memory-lancedb-mcp": "./dist/index.js"
+  },
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@lancedb/lancedb": "^0.26.2",
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "apache-arrow": "^19.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.3.0",
+    "@vitest/coverage-v8": "^4.0.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.0",
+    "vitest": "^4.0.0"
+  }
+}

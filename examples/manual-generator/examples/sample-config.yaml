@@ -1,0 +1,60 @@
+# サンプル設定: ログイン画面キャプチャ→マニュアル生成
+manual:
+  title: "サンプルシステム 利用マニュアル"
+  version: "1.0"
+  author: "自動生成"
+  output_formats: [markdown, pptx, docx, xlsx]
+
+auth:
+  url: "https://example.com/login"
+  steps:
+    - action: fill
+      selector: "#username"
+      value: "${APP_USERNAME}"
+    - action: fill
+      selector: "#password"
+      value: "${APP_PASSWORD}"
+    - action: click
+      selector: "#login-button"
+    - action: wait
+      selector: ".dashboard"
+
+pages:
+  - id: dashboard
+    title: "ダッシュボード画面"
+    url: "/dashboard"
+    description: "ログイン後の初期画面です。各機能へのナビゲーションが表示されます。"
+    screenshot:
+      fullPage: false
+      viewport: { width: 1280, height: 800 }
+    annotations:
+      - type: highlight
+        selector: ".nav-menu"
+        label: "メニューバー"
+        note: "左側のメニューから各機能にアクセスします"
+      - type: arrow
+        selector: "#notification-bell"
+        label: "通知アイコン"
+        note: "未読通知がある場合、バッジが表示されます"
+      - type: number
+        selector: ".user-profile"
+        number: 1
+        note: "プロフィール設定はここからアクセスします"
+
+  - id: settings
+    title: "設定画面"
+    navigate:
+      - action: click
+        selector: ".nav-menu a[href='/settings']"
+      - action: wait
+        selector: "form.settings"
+    description: "各種設定を変更できます。変更後は保存ボタンをクリックしてください。"
+    annotations:
+      - type: highlight
+        selector: "form.settings"
+        label: "設定フォーム"
+        note: "変更後は必ず「保存」ボタンをクリックしてください"
+      - type: number
+        selector: "#save-button"
+        number: 1
+        note: "設定変更後にクリックして保存します"
