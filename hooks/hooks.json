@@ -75,6 +75,17 @@
     ],
     "PostToolUse": [
       {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node /root/.claude/scripts/hooks/audit-trail.js",
+            "timeout": 3
+          }
+        ],
+        "description": "全ツール実行をSHA-256ハッシュチェーン付き監査証跡に記録"
+      },
+      {
         "matcher": "tool == \"Edit\" || tool == \"Write\"",
         "hooks": [
           {
