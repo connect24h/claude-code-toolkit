@@ -5,6 +5,12 @@ description: コーディングスタイルのルール
 
 # コーディングスタイル
 
+## 言語・フレームワーク
+
+- **言語**: TypeScript（JavaScript不可。必ず `.ts` / `.tsx` を使用）
+- **テストフレームワーク**: Vitest（Jest不可）
+- **テストファイル**: `*.test.ts` / `*.spec.ts`
+
 ## 命名規則
 
 - **変数/関数**: camelCase (`getUserById`)

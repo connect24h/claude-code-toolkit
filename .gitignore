@@ -1,7 +1,22 @@
-# Credentials
+# Dependencies
+node_modules/
+
+# Environment / Secrets
+.env
+.env.enc
 .credentials.json
 *.key
 *.pem
+
+# Data
+data/
+
+# Logs
+logs/
+*.log
+
+# Build
+dist/
 
 # Local settings
 settings.local.json
@@ -9,10 +24,6 @@ settings.local.json
 # Cache
 cache/
 *.cache
-
-# Logs
-logs/
-*.log
 
 # OS files
 .DS_Store

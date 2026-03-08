@@ -17,9 +17,9 @@ description: Gitワークフローのルール
 
 ### メッセージ形式
 ```
-<type>(<scope>): <subject>
+<type>(<scope>): <日本語で簡潔な説明>
 
-<body>
+<本文（日本語）>
 
 <footer>
 ```
@@ -35,14 +35,18 @@ description: Gitワークフローのルール
 
 ### 例
 ```
-feat(auth): add OAuth2 login
+feat(auth): OAuth2ログイン機能を追加
 
-- Add Google OAuth2 provider
-- Add login button to header
-- Store tokens in session
+- Google OAuth2プロバイダーを追加
+- ヘッダーにログインボタンを追加
+- セッションにトークンを保存
 
 Closes #123
 ```
+
+### ルール
+- **コミットメッセージは日本語で簡潔に**（タイプのみ英語）
+- 1行目は50文字以内を目安
 
 ## 禁止事項
 

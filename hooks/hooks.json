@@ -27,13 +27,74 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo '[Hook] 警告: force pushは危険です' >&2; echo '[Hook] 本当に必要か確認してください' >&2"
+            "command": "echo '[BLOCKED] force pushは禁止されています' >&2; exit 2"
           }
         ],
-        "description": "force pushを警告"
+        "description": "force pushをブロック"
+      },
+      {
+        "matcher": "(tool == \"Read\" || tool == \"Bash\") && (tool_input.file_path matches \"\\\\.env$\" || tool_input.command matches \"cat.*\\\\.env|head.*\\\\.env|tail.*\\\\.env|less.*\\\\.env|more.*\\\\.env\")",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '[BLOCKED] 平文.envファイルの直接読み取りは禁止です。SOPS経由で操作してください' >&2; exit 2"
+          }
+        ],
+        "description": ".envファイル直接読み取りをブロック（SOPS経由を強制）"
+      },
+      {
+        "matcher": "(tool == \"Edit\" || tool == \"Write\") && tool_input.file_path matches \"(main\\\\.cf|master\\\\.cf|dovecot|opendkim)\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '[BLOCKED] メールサーバー設定の変更は禁止です。rules/mail-server.md を参照してください' >&2; exit 2"
+          }
+        ],
+        "description": "メールサーバー設定変更をブロック"
+      },
+      {
+        "matcher": "(tool == \"Edit\" || tool == \"Write\") && tool_input.file_path matches \"/etc/(ssh|fail2ban|apache2|systemd)/\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '[Hook] 警告: システム設定ファイルの変更を検出。ユーザーに確認してください' >&2"
+          }
+        ],
+        "description": "システム設定変更を警告"
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node /root/.claude/scripts/hooks/suggest-compact.js"
+          }
+        ],
+        "description": "ツール呼び出し回数を追跡し、適切なタイミングで/compactを推奨"
       }
     ],
     "PostToolUse": [
+      {
+        "matcher": "tool == \"Edit\" || tool == \"Write\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /root/.claude/scripts/agent-trace.sh",
+            "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "bash /root/.claude/scripts/activity-log.sh tool-use",
+            "timeout": 2
+          },
+          {
+            "type": "command",
+            "command": "bash /root/.claude/scripts/dashboard-update.sh",
+            "timeout": 3
+          }
+        ],
+        "description": "Agent Trace + Activity Log + Dashboard"
+      },
       {
         "matcher": "tool == \"Edit\" && tool_input.file_path matches \"\\\\.(ts|tsx|js|jsx)$\"",
         "hooks": [
@@ -65,7 +126,109 @@
         "description": "TypeScriptファイル編集後に型チェック"
       }
     ],
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node /root/.claude/scripts/hooks/session-start.js"
+          }
+        ],
+        "description": "セッション開始時に前回のコンテキストを読み込み、プロジェクト情報を検出"
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node /root/.claude/scripts/hooks/memory-recall.js",
+            "timeout": 10
+          }
+        ],
+        "description": "セッション開始時にLanceDBから重要な記憶を自動想起してコンテキストに注入"
+      }
+    ],
+    "PreCompact": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node /root/.claude/scripts/hooks/pre-compact.js"
+          }
+        ],
+        "description": "コンテキスト圧縮前に状態を保存"
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node /root/.claude/scripts/hooks/session-end.js",
+            "timeout": 10
+          }
+        ],
+        "description": "各レスポンス後にセッション状態を永続化"
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node /root/.claude/scripts/hooks/evaluate-session.js",
+            "timeout": 10
+          }
+        ],
+        "description": "セッションから抽出可能なパターンを評価"
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node /root/.claude/scripts/hooks/memory-capture.js",
+            "timeout": 15
+          }
+        ],
+        "description": "会話からキーワードを検出し、記憶をLanceDBに自動保存"
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node /root/.claude/scripts/hooks/cost-tracker.js",
+            "timeout": 10
+          }
+        ],
+        "description": "トークン使用量とコストを追跡（~/.claude/metrics/costs.jsonl）"
+      }
+    ],
     "SessionEnd": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /root/.claude/scripts/agent-trace-finalize.sh",
+            "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "bash /root/.claude/scripts/activity-log.sh session-end",
+            "timeout": 2
+          },
+          {
+            "type": "command",
+            "command": "bash /root/.claude/scripts/dashboard-update.sh --session-end",
+            "timeout": 3
+          }
+        ],
+        "description": "Agent Trace + Activity Log + Dashboard: Finalize"
+      },
       {
         "matcher": "*",
         "hooks": [

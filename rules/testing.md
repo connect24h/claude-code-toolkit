@@ -5,6 +5,13 @@ description: テストのルール
 
 # テストルール
 
+## テストフレームワーク
+
+- **Vitest** を使用（Jest不可）
+- 設定ファイル: `vitest.config.ts`
+- 実行: `npx vitest` / `npx vitest run`
+- カバレッジ: `npx vitest run --coverage`
+
 ## カバレッジ要件
 
 - **80%以上**: 通常のコード

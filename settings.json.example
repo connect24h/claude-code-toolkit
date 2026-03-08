@@ -1,0 +1,48 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp",
+        "--no-sandbox"
+      ],
+      "env": {
+        "DISPLAY": ":0"
+      }
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": [
+        "@modelcontextprotocol/server-sequential-thinking"
+      ]
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/path/to/your/project1",
+        "/path/to/your/project2"
+      ]
+    },
+    "fetch": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-fetch"
+      ]
+    },
+    "memory": {
+      "command": "bash",
+      "args": ["~/.claude/scripts/memory-lancedb-mcp.sh"]
+    },
+    "google-workspace": {
+      "command": "~/.claude/scripts/google-workspace-mcp.sh",
+      "args": ["start"],
+      "env": {
+        "GOOGLE_WORKSPACE_SERVICES": "drive,gmail,calendar",
+        "GOOGLE_WORKSPACE_READ_ONLY": "true"
+      }
+    }
+  }
+}
