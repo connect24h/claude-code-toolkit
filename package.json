@@ -1,0 +1,25 @@
+{
+  "name": "mail-to-slack",
+  "version": "1.0.0",
+  "description": "hamamoto宛メールをSlack通知 + Teams会議をGoogleカレンダー登録",
+  "type": "module",
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@slack/web-api": "^7.14.1",
+    "googleapis": "^148.0.0",
+    "imapflow": "^1.0.171",
+    "mailparser": "^3.7.2"
+  },
+  "devDependencies": {
+    "@types/mailparser": "^3.4.5",
+    "@types/node": "^22.0.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18"
+  }
+}
