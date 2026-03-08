@@ -253,11 +253,32 @@ cp CLAUDE.md ~/.claude/
 
 ## サンプルプロジェクト
 
-### examples/youtube-observer/
-YouTube チャンネルの定点観測・要約自動化
+### examples/memory-lancedb-mcp/
+LanceDBベースのセマンティックメモリMCPサーバー。7種Embeddingプロバイダー対応（Ollama, CLI×Ollama, OpenAI, Gemini, Voyage）。39テスト。
+
+### examples/manual-generator/
+Playwright画面キャプチャ → Sharpアノテーション合成 → マニュアル自動生成。4フォーマット出力（Markdown/PowerPoint/Excel/Word）。38テスト。
 
 ### examples/mail-to-slack/
-メール受信 → Slack通知 + Teams会議 → Googleカレンダー登録
+メール受信 → Slack通知 + Teams会議 → Googleカレンダー自動登録。IMAP監視、Cron 5分間隔。9テスト。
+
+### examples/youtube-observer/
+YouTube チャンネルの定点観測・要約自動化（Bash + yt-dlp + Codex CLI）。
+
+## 管理プロジェクト一覧
+
+本ツールキットで管理している全プロジェクト:
+
+| プロジェクト | 言語 | 用途 | スケジュール | デプロイ |
+|-------------|------|------|------------|---------|
+| **AssetFinanceApp** | TypeScript | AI売買計画→Slack投稿 | 毎朝7:00 JST | systemd timer |
+| **iketomo_ch** | Bash | YouTube定点観測・要約 | 6:00 & 7:00 JST | cron |
+| **mail-to-slack** | TypeScript | メール→Slack + Teams→Calendar | 5分間隔 | cron |
+| **memory-lancedb-mcp** | TypeScript | セマンティックメモリMCP | 常駐 | MCP Server |
+| **manual-generator** | TypeScript | Webマニュアル自動生成 | オンデマンド | CLIツール |
+| **moneyforward** | Python 3 | 資産スナップショット | 手動 | ローカル実行 |
+| **marp-slides** | Marp/Markdown | プレゼン自動生成 | オンデマンド | `/marp` スキル |
+| **mailserver** | - | メールサーバー（設定変更禁止） | 常時稼働 | systemd |
 
 ## 前提条件
 
