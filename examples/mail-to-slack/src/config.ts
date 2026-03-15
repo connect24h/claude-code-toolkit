@@ -13,7 +13,7 @@ function requireEnv(key: string): string {
 
 export const CONFIG = {
   // IMAP
-  imapHost: () => process.env['IMAP_HOST'] ?? 'mail.cojp.online',
+  imapHost: () => process.env['IMAP_HOST'] ?? 'mail.example.com',
   imapPort: () => Number(process.env['IMAP_PORT'] ?? '993'),
   imapUser: () => requireEnv('IMAP_USER'),
   imapPassword: () => requireEnv('IMAP_PASSWORD'),
@@ -26,7 +26,7 @@ export const CONFIG = {
   googleClientId: () => requireEnv('GOOGLE_CLIENT_ID'),
   googleClientSecret: () => requireEnv('GOOGLE_CLIENT_SECRET'),
   googleRefreshToken: () => requireEnv('GOOGLE_REFRESH_TOKEN'),
-  googleCalendarId: () => process.env['GOOGLE_CALENDAR_ID'] ?? 'connect24h.now@gmail.com',
+  googleCalendarId: () => process.env['GOOGLE_CALENDAR_ID'] ?? 'your-calendar@gmail.com',
 
   // Paths
   dataDir: resolve(__dirname, '..', 'data'),

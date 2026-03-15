@@ -247,7 +247,7 @@ scripts/
 | サービス | 接続情報 |
 |---------|---------|
 | IMAP | imap.example.co.jp:993 (SSL/TLS, TLS検証スキップ) |
-| Slack | #all-claude-code-manager (C0AH8CMPEL8) |
+| Slack | #all-claude-code-manager (CXXXXXXXXXX) |
 | Google Calendar | user@gmail.com (calendar書き込みスコープ) |
 
 ### Teams会議検出
@@ -408,7 +408,7 @@ systemd timer (7:00) → run.sh (SOPS復号) → index.ts
 ### デプロイ
 
 - systemd timer: `asset-finance.timer` (毎朝7:00 JST)
-- Slack: #all-claude-code-manager (C0AH8CMPEL8)
+- Slack: #all-claude-code-manager (CXXXXXXXXXX)
 - テスト: 20/20通過
 - 初回動作確認: 2026-03-07（93.3秒、Slack投稿成功）
 
