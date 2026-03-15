@@ -32,3 +32,4 @@ Thumbs.db
 settings.local.json
 MEMORY.md
 memory/
+scripts/sanitize-history.sh
