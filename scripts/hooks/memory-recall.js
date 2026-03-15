@@ -55,7 +55,7 @@ async function main() {
   // LanceDBを動的インポート
   let lancedb;
   try {
-    lancedb = require(path.join('/root/memory-lancedb-mcp/node_modules/@lancedb/lancedb'));
+    lancedb = require(path.join(process.env.HOME + '/memory-lancedb-mcp/node_modules/@lancedb/lancedb'));
   } catch {
     log('LanceDBモジュールのロード失敗 - スキップ');
     process.exit(0);

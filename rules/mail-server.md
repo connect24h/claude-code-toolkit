@@ -5,7 +5,7 @@ description: メールサーバー設定の変更ルール
 
 # メールサーバー設定変更ルール
 
-mail.cojp.online のメールサーバー設定は確定済み。勝手に変更しないこと。
+mail.example.com のメールサーバー設定は確定済み。勝手に変更しないこと。
 
 ## 変更禁止事項（ユーザーの明示的な許可なく実施しない）
 
@@ -15,7 +15,7 @@ mail.cojp.online のメールサーバー設定は確定済み。勝手に変更
 - `master.cf` の `submissions` (ポート465) はコメントアウトのまま維持
 
 ### SSL証明書
-- Let's Encrypt証明書 (`/etc/letsencrypt/live/mail.cojp.online/`) を使用で確定
+- Let's Encrypt証明書 (`/etc/letsencrypt/live/mail.example.com/`) を使用で確定
 - 自己署名証明書に戻さない
 - 証明書パスを変更しない
   - Dovecot: `/etc/dovecot/conf.d/10-ssl.conf`
@@ -26,8 +26,8 @@ mail.cojp.online のメールサーバー設定は確定済み。勝手に変更
 - `smtpd_sasl_type = dovecot` を変更しない
 
 ### OpenDKIM
-- 全ドメイン `d=cojp.online` で署名。署名ドメインを変更しない
-- DKIM秘密鍵 (`/etc/opendkim/keys/cojp.online/mail.private`) を変更・削除しない
+- 全ドメイン `d=example.com` で署名。署名ドメインを変更しない
+- DKIM秘密鍵 (`/etc/opendkim/keys/example.com/mail.private`) を変更・削除しない
 
 ## ユーザーに確認すべき変更
 
@@ -51,7 +51,7 @@ mail.cojp.online のメールサーバー設定は確定済み。勝手に変更
 
 ## 正式ドキュメント
 
-設定の詳細は `/root/mailserver/CLAUDE.md` を参照すること。
+設定の詳細は `$HOME/mailserver/CLAUDE.md` を参照すること。
 Thunderbird接続情報も同ドキュメントに記載済み。
 
 ## クライアント設定案内時の注意

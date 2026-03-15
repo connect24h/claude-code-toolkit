@@ -5,7 +5,7 @@
 set -e
 
 # 設定
-BASE_DIR="/root/iketomo_ch"
+BASE_DIR="$HOME/iketomo_ch"
 LOG_DIR="$BASE_DIR/logs"
 CONFIG_FILE="$BASE_DIR/config/channels.json"
 DATE=$(date +%Y%m%d)

@@ -4,7 +4,7 @@
 #
 # 復号結果はメモリ上のみ（一時ファイルを使わない）
 
-SOPS_AGE_KEY_FILE="/root/.config/sops/age/keys.txt"
+SOPS_AGE_KEY_FILE="${SOPS_AGE_KEY_FILE:-$HOME/.config/sops/age/keys.txt}"
 export SOPS_AGE_KEY_FILE
 
 _decrypt_and_export() {

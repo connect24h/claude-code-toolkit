@@ -1,7 +1,7 @@
 {
   "name": "mail-to-slack",
   "version": "1.0.0",
-  "description": "hamamoto宛メールをSlack通知 + Teams会議をGoogleカレンダー登録",
+  "description": "ユーザー宛メールをSlack通知 + Teams会議をGoogleカレンダー登録",
   "type": "module",
   "scripts": {
     "start": "tsx src/index.ts",

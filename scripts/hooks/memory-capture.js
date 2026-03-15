@@ -144,7 +144,7 @@ async function main() {
   // LanceDB
   let lancedb;
   try {
-    lancedb = require(path.join('/root/memory-lancedb-mcp/node_modules/@lancedb/lancedb'));
+    lancedb = require(path.join(process.env.HOME + '/memory-lancedb-mcp/node_modules/@lancedb/lancedb'));
   } catch {
     process.exit(0);
   }

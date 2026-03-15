@@ -15,7 +15,7 @@ Playwright MCPを使ったスライドレイアウト自動修正スキル。
 
 ## Prerequisites
 
-- Playwright MCP が設定済み（project: /root/.mcp.json）
+- Playwright MCP が設定済み（project: .mcp.json）
 - @marp-team/marp-cli がインストール済み（/opt/marp-slides/）
 
 ## Process

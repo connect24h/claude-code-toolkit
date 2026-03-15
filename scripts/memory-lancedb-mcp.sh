@@ -10,11 +10,11 @@
 set -e
 
 # SOPS暗号化されたAPIキーを復号（存在する場合）
-if [ -f /root/.claude/.env.enc ]; then
-  source /root/.claude/scripts/lib/decrypt-env.sh /root/.claude/.env.enc 2>/dev/null || true
+if [ -f $HOME/.claude/.env.enc ]; then
+  source $HOME/.claude/scripts/lib/decrypt-env.sh $HOME/.claude/.env.enc 2>/dev/null || true
 fi
 
 # デフォルトプロバイダー: ollama（最速・APIキー不要）
 export MEMORY_EMBEDDING_PROVIDER="${MEMORY_EMBEDDING_PROVIDER:-ollama}"
 
-exec npx --prefix /root/memory-lancedb-mcp tsx /root/memory-lancedb-mcp/src/index.ts
+exec npx --prefix $HOME/memory-lancedb-mcp tsx $HOME/memory-lancedb-mcp/src/index.ts

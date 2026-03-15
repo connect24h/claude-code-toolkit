@@ -4,7 +4,7 @@
 
 set -e
 
-BASE_DIR="/root/iketomo_ch"
+BASE_DIR="$HOME/iketomo_ch"
 LOG_DIR="$BASE_DIR/logs"
 DATE=$(date +%Y%m%d)
 TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')

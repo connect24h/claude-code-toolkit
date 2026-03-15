@@ -22,7 +22,7 @@
 ## 実行コマンド
 
 ```bash
-node /root/.claude/scripts/hooks/audit-verify.js
+node $HOME/.claude/scripts/hooks/audit-verify.js
 ```
 
 異常が検出された場合は終了コード1を返す。

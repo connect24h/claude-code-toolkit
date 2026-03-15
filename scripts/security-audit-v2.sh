@@ -5,7 +5,7 @@
 set -e
 
 TARGET="$1"
-REPORT_DIR="/root/.claude/security-reports"
+REPORT_DIR="$HOME/.claude/security-reports"
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 TEMP_DIR=$(mktemp -d)
 SANDBOX_DIR="$TEMP_DIR/sandbox"

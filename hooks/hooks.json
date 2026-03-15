@@ -67,7 +67,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node /root/.claude/scripts/hooks/suggest-compact.js"
+            "command": "node $HOME/.claude/scripts/hooks/suggest-compact.js"
           }
         ],
         "description": "ツール呼び出し回数を追跡し、適切なタイミングで/compactを推奨"
@@ -77,7 +77,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node /root/.claude/scripts/hooks/pre-bash-git-push-reminder.js"
+            "command": "node $HOME/.claude/scripts/hooks/pre-bash-git-push-reminder.js"
           }
         ],
         "description": "git push前に変更内容のレビューをリマインド"
@@ -89,7 +89,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node /root/.claude/scripts/hooks/audit-trail.js",
+            "command": "node $HOME/.claude/scripts/hooks/audit-trail.js",
             "timeout": 3
           }
         ],
@@ -100,17 +100,17 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash /root/.claude/scripts/agent-trace.sh",
+            "command": "bash $HOME/.claude/scripts/agent-trace.sh",
             "timeout": 5
           },
           {
             "type": "command",
-            "command": "bash /root/.claude/scripts/activity-log.sh tool-use",
+            "command": "bash $HOME/.claude/scripts/activity-log.sh tool-use",
             "timeout": 2
           },
           {
             "type": "command",
-            "command": "bash /root/.claude/scripts/dashboard-update.sh",
+            "command": "bash $HOME/.claude/scripts/dashboard-update.sh",
             "timeout": 3
           }
         ],
@@ -151,7 +151,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node /root/.claude/scripts/hooks/post-bash-build-complete.js",
+            "command": "node $HOME/.claude/scripts/hooks/post-bash-build-complete.js",
             "async": true,
             "timeout": 30
           }
@@ -163,7 +163,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node /root/.claude/scripts/hooks/quality-gate.js",
+            "command": "node $HOME/.claude/scripts/hooks/quality-gate.js",
             "async": true,
             "timeout": 30
           }
@@ -175,7 +175,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node /root/.claude/scripts/hooks/post-edit-format.js"
+            "command": "node $HOME/.claude/scripts/hooks/post-edit-format.js"
           }
         ],
         "description": "JS/TSファイル編集後にBiome/Prettierで自動フォーマット"
@@ -187,7 +187,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node /root/.claude/scripts/hooks/session-start.js"
+            "command": "node $HOME/.claude/scripts/hooks/session-start.js"
           }
         ],
         "description": "セッション開始時に前回のコンテキストを読み込み、プロジェクト情報を検出"
@@ -197,7 +197,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node /root/.claude/scripts/hooks/memory-recall.js",
+            "command": "node $HOME/.claude/scripts/hooks/memory-recall.js",
             "timeout": 10
           }
         ],
@@ -210,7 +210,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node /root/.claude/scripts/hooks/pre-compact.js"
+            "command": "node $HOME/.claude/scripts/hooks/pre-compact.js"
           }
         ],
         "description": "コンテキスト圧縮前に状態を保存"
@@ -222,7 +222,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node /root/.claude/scripts/hooks/session-end.js",
+            "command": "node $HOME/.claude/scripts/hooks/session-end.js",
             "timeout": 10
           }
         ],
@@ -233,7 +233,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node /root/.claude/scripts/hooks/evaluate-session.js",
+            "command": "node $HOME/.claude/scripts/hooks/evaluate-session.js",
             "timeout": 10
           }
         ],
@@ -244,7 +244,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node /root/.claude/scripts/hooks/memory-capture.js",
+            "command": "node $HOME/.claude/scripts/hooks/memory-capture.js",
             "timeout": 15
           }
         ],
@@ -255,7 +255,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node /root/.claude/scripts/hooks/cost-tracker.js",
+            "command": "node $HOME/.claude/scripts/hooks/cost-tracker.js",
             "timeout": 10
           }
         ],
@@ -266,7 +266,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node /root/.claude/scripts/hooks/check-console-log.js"
+            "command": "node $HOME/.claude/scripts/hooks/check-console-log.js"
           }
         ],
         "description": "変更ファイル内のconsole.logを最終チェック"
@@ -278,17 +278,17 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash /root/.claude/scripts/agent-trace-finalize.sh",
+            "command": "bash $HOME/.claude/scripts/agent-trace-finalize.sh",
             "timeout": 10
           },
           {
             "type": "command",
-            "command": "bash /root/.claude/scripts/activity-log.sh session-end",
+            "command": "bash $HOME/.claude/scripts/activity-log.sh session-end",
             "timeout": 2
           },
           {
             "type": "command",
-            "command": "bash /root/.claude/scripts/dashboard-update.sh --session-end",
+            "command": "bash $HOME/.claude/scripts/dashboard-update.sh --session-end",
             "timeout": 3
           }
         ],
@@ -309,7 +309,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node /root/.claude/scripts/hooks/session-end-marker.js"
+            "command": "node $HOME/.claude/scripts/hooks/session-end-marker.js"
           }
         ],
         "description": "セッション終了ライフサイクルマーカー"
