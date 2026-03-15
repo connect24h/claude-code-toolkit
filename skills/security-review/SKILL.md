@@ -2,6 +2,7 @@
 name: security-review
 description: セキュリティレビュー。OWASP Top 10を中心にチェック。
 trigger: "API", "認証", "DB", "ユーザー入力"
+allowed-tools: "Read, Grep, Glob"
 ---
 
 # Security Review スキル

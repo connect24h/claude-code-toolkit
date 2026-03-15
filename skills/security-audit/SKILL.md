@@ -1,6 +1,6 @@
 ---
 name: security-audit
-description: MCP・Skill導入前のセキュリティ監査。ソースコード信頼性、依存関係、権限範囲を評価。
+description: MCP・Skill導入前のセキュリティ監査。ソースコード信頼性、依存関係、権限範囲を評価。Use when MCP導入、新規Skill追加、パッケージ導入前のセキュリティ確認時。
 trigger: "MCP導入", "Skill導入", "新規パッケージ"
 ---
 

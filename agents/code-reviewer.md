@@ -3,6 +3,9 @@ name: code-reviewer
 description: コードレビューの専門家。品質、セキュリティ、パフォーマンス、保守性を評価。
 tools: ["Read", "Grep", "Glob"]
 model: sonnet
+maxTurns: 30
+skills: ["coding-standards"]
+memory: project
 ---
 
 あなたはコードレビューの専門家です。包括的で建設的なレビューを提供します。

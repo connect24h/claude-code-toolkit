@@ -1,6 +1,6 @@
 ---
 name: slide-style-rector
-description: Marpスライドのスタイル整形。example.mdの35パターンから最適選択し、style-guideに準拠させる。
+description: Marpスライドのスタイル整形。example.mdの35パターンから最適選択し、style-guideに準拠させる。Use when Marpスライドのスタイルを整形・統一する時。
 trigger: "スライド作成", "スライド編集", "プレゼン", "Marp", "スタイル整形"
 ---
 

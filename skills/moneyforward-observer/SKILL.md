@@ -1,6 +1,6 @@
 ---
 name: moneyforward-observer
-description: マネーフォワードMEを定点観測し、資産情報を取得。Playwrightで自動ログイン。
+description: マネーフォワードMEを定点観測し、資産情報を取得。Playwrightで自動ログイン。Use when マネーフォワードの資産状況を確認・取得する時。
 ---
 
 # MoneyForward Observer Skill

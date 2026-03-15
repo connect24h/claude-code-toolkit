@@ -1,6 +1,6 @@
 ---
 name: manual-generator
-description: 認証画面キャプチャ→注釈付与→利用マニュアル自動生成。Playwright+Sharp+4形式出力。
+description: 認証画面キャプチャ→注釈付与→利用マニュアル自動生成。Playwright+Sharp+4形式出力。Use when 操作マニュアル作成、画面キャプチャから手順書を自動生成する時。
 trigger: "マニュアル作成", "利用マニュアル", "操作手順書", "画面キャプチャ", "manual-generator"
 ---
 

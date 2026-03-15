@@ -1,6 +1,6 @@
 ---
 name: youtube-channel-observer
-description: YouTubeチャンネルを定点観測し、内容を要約。yt-dlpで字幕取得、Codex CLIで要約作成。
+description: YouTubeチャンネルを定点観測し、内容を要約。yt-dlpで字幕取得、Codex CLIで要約作成。Use when YouTube動画の定点観測・要約を行う時。
 ---
 
 # YouTube Channel Observer Skill

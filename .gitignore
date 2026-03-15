@@ -1,30 +1,34 @@
-# Dependencies
-node_modules/
-
-# Environment / Secrets
-.env
-.env.enc
-.credentials.json
+# 機密ファイル
+*.env
+*.enc
 *.key
 *.pem
+tokens.json
+credentials.json
+.env.*
 
-# Data
-data/
+# 運用データ
+audit/
+metrics/
+sessions/
+claw/
+plans/
+projects/
+agent-memory/
+agent-memory-local/
 
-# Logs
-logs/
-*.log
+# Node.js
+node_modules/
+package-lock.json
 
-# Build
-dist/
-
-# Local settings
-settings.local.json
-
-# Cache
-cache/
-*.cache
-
-# OS files
+# OS
 .DS_Store
 Thumbs.db
+
+# SOPS
+*.sops.*
+
+# 個人設定
+settings.local.json
+MEMORY.md
+memory/

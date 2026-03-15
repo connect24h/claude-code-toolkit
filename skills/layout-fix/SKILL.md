@@ -1,6 +1,6 @@
 ---
 name: layout-fix
-description: Playwright MCPでスライドをスクリーンショットし、レイアウト崩れを検出・自動修正する。
+description: Playwright MCPでスライドをスクリーンショットし、レイアウト崩れを検出・自動修正する。Use when Marpスライドのレイアウト崩れを検出・修正する時。
 trigger: "レイアウト修正", "レイアウト崩れ", "はみ出し", "見切れ", "layout-fix"
 ---
 

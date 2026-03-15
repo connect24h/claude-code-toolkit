@@ -1,20 +1,24 @@
 {
+  "defaultMode": "bypassPermissions",
+  "alwaysThinkingEnabled": true,
+  "cleanupPeriodDays": 60,
+  "enableAllProjectMcpServers": true,
+  "env": {
+    "ENABLE_TOOL_SEARCH": "auto:10"
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "cat | bash ~/.claude/statusline.sh"
+  },
   "mcpServers": {
     "playwright": {
       "command": "npx",
-      "args": [
-        "@playwright/mcp",
-        "--no-sandbox"
-      ],
-      "env": {
-        "DISPLAY": ":0"
-      }
+      "args": ["@playwright/mcp", "--no-sandbox"],
+      "env": { "DISPLAY": ":0" }
     },
     "sequential-thinking": {
       "command": "npx",
-      "args": [
-        "@modelcontextprotocol/server-sequential-thinking"
-      ]
+      "args": ["@modelcontextprotocol/server-sequential-thinking"]
     },
     "filesystem": {
       "command": "npx",
@@ -27,10 +31,7 @@
     },
     "fetch": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-fetch"
-      ]
+      "args": ["-y", "@modelcontextprotocol/server-fetch"]
     },
     "memory": {
       "command": "bash",

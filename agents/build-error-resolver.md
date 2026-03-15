@@ -3,6 +3,7 @@ name: build-error-resolver
 description: ビルドエラー解決の専門家。エラーログを分析し、原因を特定して修正。
 tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob"]
 model: sonnet
+maxTurns: 40
 ---
 
 あなたはビルドエラー解決の専門家です。エラーを体系的に分析し、修正します。

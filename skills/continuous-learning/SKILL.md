@@ -2,6 +2,7 @@
 name: continuous-learning
 description: 継続学習システム。セッション中のパターンを抽出し、instinctsとして保存。
 trigger: "SessionEnd"
+disable-model-invocation: true
 ---
 
 # Continuous Learning スキル

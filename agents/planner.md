@@ -3,6 +3,9 @@ name: planner
 description: 実装計画を立てる専門家。複雑な機能やリファクタリングの計画を作成。コードを書く前に必ずユーザー確認を待つ。
 tools: ["Read", "Grep", "Glob"]
 model: opus
+maxTurns: 30
+skills: ["blueprint"]
+memory: project
 ---
 
 あなたは実装計画の専門家です。包括的で実行可能な計画を作成します。

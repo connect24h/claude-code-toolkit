@@ -71,6 +71,16 @@
           }
         ],
         "description": "ツール呼び出し回数を追跡し、適切なタイミングで/compactを推奨"
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node /root/.claude/scripts/hooks/pre-bash-git-push-reminder.js"
+          }
+        ],
+        "description": "git push前に変更内容のレビューをリマインド"
       }
     ],
     "PostToolUse": [
@@ -135,6 +145,40 @@
           }
         ],
         "description": "TypeScriptファイル編集後に型チェック"
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node /root/.claude/scripts/hooks/post-bash-build-complete.js",
+            "async": true,
+            "timeout": 30
+          }
+        ],
+        "description": "ビルド完了後にバックグラウンドで分析を実行"
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node /root/.claude/scripts/hooks/quality-gate.js",
+            "async": true,
+            "timeout": 30
+          }
+        ],
+        "description": "ファイル編集後にクオリティゲートチェックを実行"
+      },
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node /root/.claude/scripts/hooks/post-edit-format.js"
+          }
+        ],
+        "description": "JS/TSファイル編集後にBiome/Prettierで自動フォーマット"
       }
     ],
     "SessionStart": [
@@ -216,6 +260,16 @@
           }
         ],
         "description": "トークン使用量とコストを追跡（~/.claude/metrics/costs.jsonl）"
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node /root/.claude/scripts/hooks/check-console-log.js"
+          }
+        ],
+        "description": "変更ファイル内のconsole.logを最終チェック"
       }
     ],
     "SessionEnd": [
@@ -249,6 +303,16 @@
           }
         ],
         "description": "セッション終了時にパターンを記録"
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node /root/.claude/scripts/hooks/session-end-marker.js"
+          }
+        ],
+        "description": "セッション終了ライフサイクルマーカー"
       }
     ]
   }

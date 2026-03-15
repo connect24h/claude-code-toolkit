@@ -1,3 +1,10 @@
+---
+name: security-auditor
+description: MCP・Skill導入前のセキュリティ監査エージェント。新しいMCPサーバーやSkillのセキュリティリスクを評価。
+model: sonnet
+tools: ["Read", "Grep", "Glob", "Bash"]
+---
+
 # Security Auditor Agent
 
 MCP・Skill導入前のセキュリティ監査エージェント
